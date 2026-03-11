@@ -42,7 +42,7 @@ export default function FeedPage() {
           onSuccess: () => {
             setIsEditOpen(false);
             setSelectedPost(null);
-            toast.success("Post Edit successfully!");
+            toast.success("Post edited successfully!");
           },
         },
       );
@@ -53,52 +53,65 @@ export default function FeedPage() {
     <main className="relative min-h-screen bg-neutral-200 flex flex-col items-center">
       <Toaster position="top-right" richColors />
 
+      {/* Container Principal: Card Flutuante */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="sm:w-full max-w-200 mx-auto bg-white min-h-auto my-auto rounded-2xl shadow-2xl overflow-hidden border border-neutral-200"
+      >
+        <header className="w-full max-w-200 bg-primary-blue p-4 sm:p-7 flex items-center justify-between shadow-sm sticky top-0 z-40">
+          <h1 className="text-white text-xl sm:text-2xl font-bold">
+            CodeLeap Network
+          </h1>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={logout}
+            className="text-white flex items-center gap-2 font-bold bg-white/10 px-3 py-1 rounded-lg hover:bg-white/20 transition-colors"
+          >
+            <span className="hidden xs:inline">Logout</span>
+            <LogOut size={20} />
+          </motion.button>
+        </header>
+
+        {/* Container Adaptável */}
+        <section className="w-full max-w-200 bg-white min-h-auto  p-4 sm:p-6 shadow-sm">
+          <CreatePost />
+
+          <div className="mt-6 flex flex-col gap-4">
+            <AnimatePresence mode="popLayout">
+              {posts.map((post) => (
+                <motion.div
+                  key={post.id}
+                  layout // Faz os outros posts deslizarem suavemente quando um sai
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{
+                    opacity: 0,
+                    scale: 0.5,
+                    transition: { duration: 0.2 },
+                  }}
+                >
+                  <PostCard
+                    post={post}
+                    onEdit={() => {
+                      setSelectedPost(post);
+                      setIsEditOpen(true);
+                    }}
+                    onDelete={() => {
+                      setSelectedPost(post);
+                      setIsDeleteOpen(true);
+                    }}
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </section>
+      </motion.section>
+
       {/* Header Responsivo */}
-      <header className="w-full max-w-200 bg-primary-blue p-4 sm:p-7 flex items-center justify-between shadow-sm sticky top-0 z-40">
-        <h1 className="text-white text-xl sm:text-2xl font-bold">
-          CodeLeap Network
-        </h1>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={logout}
-          className="text-white flex items-center gap-2 font-bold bg-white/10 px-3 py-1 rounded-lg hover:bg-white/20 transition-colors"
-        >
-          <span className="hidden xs:inline">Logout</span>
-          <LogOut size={20} />
-        </motion.button>
-      </header>
-
-      {/* Container Adaptável */}
-      <section className="w-full max-w-200 bg-white min-h-screen p-4 sm:p-6 shadow-sm">
-        <CreatePost />
-
-        <div className="mt-6 flex flex-col gap-4">
-          <AnimatePresence mode="popLayout">
-            {posts.map((post) => (
-              <motion.div
-                key={post.id}
-                layout // Faz os outros posts deslizarem suavemente quando um sai
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
-              >
-                <PostCard
-                  post={post}
-                  onEdit={() => {
-                    setSelectedPost(post);
-                    setIsEditOpen(true);
-                  }}
-                  onDelete={() => {
-                    setSelectedPost(post);
-                    setIsDeleteOpen(true);
-                  }}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-      </section>
 
       <DeleteModal
         isOpen={isDeleteOpen}
@@ -118,7 +131,8 @@ export default function FeedPage() {
         onTitleChange={setEditTitle}
         onContentChange={setEditContent}
       />
-    
-    <TopButton/></main>
+
+      <TopButton />
+    </main>
   );
 }

@@ -88,7 +88,7 @@ export function PostCard({ post, onEdit, onDelete, index = 0 }: PostCardProps) {
               <span className="font-bold text-neutral-700 block text-sm">@{post.username}</span>
               {isOwner && (
                 <span className="text-xs font-medium px-2 py-0.5 bg-primary-blue/10 text-primary-blue rounded-full">
-                  You
+                  Your post, {post.username} - you can edit it.
                 </span>
               )}
             </div>

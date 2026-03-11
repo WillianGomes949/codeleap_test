@@ -196,7 +196,7 @@ export function EditModal({
                 className={`
                   flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg
                   ${hasChanges 
-                    ? 'bg-linear-to-r from-success to-successtext-white shadow-success/30 hover:shadow-xl hover:shadow-success/40' 
+                    ? 'bg-linear-to-r from-success to-success text-white shadow-success/30 hover:shadow-xl hover:shadow-success/40' 
                     : 'bg-neutral-200 text-neutral-400 cursor-not-allowed shadow-none'
                   }
                 `}

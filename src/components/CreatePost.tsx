@@ -4,8 +4,9 @@
 import { useState } from "react";
 import { useUser } from "../context/UserContext";
 import { usePosts } from "../hooks/usePosts";
-import { Send, Loader2, Sparkles, Type, AlignLeft } from "lucide-react";
+import { Send, Loader2, Type, AlignLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 
 export function CreatePost() {
   const [title, setTitle] = useState("");
@@ -22,6 +23,7 @@ export function CreatePost() {
           onSuccess: () => {
             setTitle("");
             setContent("");
+            toast.success("Post created successfully!");
           },
         },
       );
