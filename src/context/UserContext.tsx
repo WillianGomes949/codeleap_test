@@ -86,17 +86,19 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const logout = useCallback(async () => {
-    try {
-      await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include',
-      });
+ const logout = useCallback(async () => {
+  try {
+    const res = await fetch('/api/auth/logout', {
+      method: 'POST',
+      credentials: 'include',
+    });
+    if (res.ok) {
       setUsername(null);
-    } catch (error) {
-      console.error('Error during logout:', error);
     }
-  }, []);
+  } catch (error) {
+    console.error('Error during logout:', error);
+  }
+}, []);
 
   // Memoriza o valor do context para evitar re-renders desnecessários
   const contextValue = useMemo(() => ({
