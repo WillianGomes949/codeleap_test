@@ -15,12 +15,9 @@ import { Toaster, toast } from "sonner";
 export default function FeedPage() {
   const { posts, deletePost, updatePost } = usePosts();
   const { logout } = useUser();
-
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
-
-  // Estados para controlar o modal de edição
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
 
@@ -52,11 +49,11 @@ export default function FeedPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#DDDDDD] flex flex-col items-center">
+    <main className="min-h-screen bg-neutral-200 flex flex-col items-center">
       <Toaster position="top-right" richColors />
 
       {/* Header Responsivo */}
-      <header className="w-full max-w-200 bg-[#7695EC] p-4 sm:p-7 flex items-center justify-between shadow-sm sticky top-0 z-40">
+      <header className="w-full max-w-200 bg-primary-blue p-4 sm:p-7 flex items-center justify-between shadow-sm sticky top-0 z-40">
         <h1 className="text-white text-xl sm:text-2xl font-bold">
           CodeLeap Network
         </h1>

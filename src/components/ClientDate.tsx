@@ -16,11 +16,11 @@ export function ClientDate({ date }: ClientDateProps) {
   }, []);
 
   if (!mounted) {
-    return <span className="text-sm text-[#777777]">Loading...</span>;
+    return <span className="text-sm text-neutral-500">Loading...</span>;
   }
 
   return (
-    <span className="text-sm text-[#777777]">
+    <span className="text-sm text-neutral-500">
       {formatDistanceToNow(new Date(date), { addSuffix: true, locale: enUS })}
     </span>
   );

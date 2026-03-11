@@ -74,26 +74,26 @@ export function EditModal({
             className="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#47B960]/10 to-[#47B960]/5 px-6 py-5 border-b border-[#47B960]/20 flex items-center justify-between">
+            <div className="bg-linear-to-r from-success/10 to-success/5 px-6 py-5 border-b border-success/20 flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <motion.div 
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
-                  className="w-12 h-12 bg-gradient-to-br from-[#47B960] to-[#3da852] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#47B960]/30"
+                  className="w-12 h-12 bg-linear-to-br from-success to-[#3da852] rounded-xl flex items-center justify-center text-white shadow-lg shadow-success/30"
                 >
                   <Edit3 className="w-6 h-6" />
                 </motion.div>
                 <div>
-                  <h2 className="text-xl font-bold text-[#333333]">Edit Post</h2>
-                  <p className="text-sm text-[#777777]">Refine your content</p>
+                  <h2 className="text-xl font-bold text-neutral-700">Edit Post</h2>
+                  <p className="text-sm text-neutral-500">Refine your content</p>
                 </div>
               </div>
               <motion.button 
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={onClose}
-                className="text-[#999999] hover:text-[#555555] transition-colors p-2 hover:bg-[#f5f5f5] rounded-full"
+                className="text-neutral-400 hover:text-neutral-600 transition-colors p-2 hover:bg-neutral-100 rounded-full"
               >
                 <X className="w-5 h-5" />
               </motion.button>
@@ -107,27 +107,27 @@ export function EditModal({
                 transition={{ duration: 0.2 }}
               >
                 <div className="flex justify-between items-center">
-                  <label className={`text-sm font-semibold flex items-center gap-2 transition-colors ${isFocused === 'title' ? 'text-[#47B960]' : 'text-[#555555]'}`}>
+                  <label className={`text-sm font-semibold flex items-center gap-2 transition-colors ${isFocused === 'title' ? 'text-success' : 'text-neutral-600'}`}>
                     <Type className="w-4 h-4" />
                     Title
                   </label>
                   <div className="flex items-center gap-2">
                     <div className="w-24 h-1.5 bg-[#f0f0f0] rounded-full overflow-hidden">
                       <motion.div 
-                        className="h-full bg-gradient-to-r from-[#47B960] to-[#6bc780] rounded-full"
+                        className="h-full bg-linear-to-r from-success to-[#6bc780] rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: `${titleProgress}%` }}
                       />
                     </div>
-                    <span className="text-xs text-[#999999] font-medium">{safeTitle.length}/100</span>
+                    <span className="text-xs text-neutral-400 font-medium">{safeTitle.length}/100</span>
                   </div>
                 </div>
                 <input 
                   type="text"
-                  className={`w-full bg-[#f8f9fa] border-2 rounded-xl px-4 py-3.5 outline-none transition-all duration-300 text-[#333333] placeholder-[#aaaaaa] font-medium
+                  className={`w-full bg-neutral-100 border-2 rounded-xl px-4 py-3.5 outline-none transition-all duration-300 text-neutral-700 placeholder-neutral-400 font-medium
                     ${isFocused === 'title' 
-                      ? 'border-[#47B960] bg-white shadow-[0_0_0_4px_rgba(71,185,96,0.1)]' 
-                      : 'border-[#e0e0e0] hover:border-[#d0d0d0]'
+                      ? 'border-success bg-white shadow-[0_0_0_4px_rgba(71,185,96,0.1)]' 
+                      : 'border-neutral-200 hover:border-neutral-300'
                     }`}
                   value={safeTitle}
                   onChange={(e) => setTitle(e.target.value.slice(0, 100))}
@@ -145,26 +145,26 @@ export function EditModal({
                 transition={{ duration: 0.2 }}
               >
                 <div className="flex justify-between items-center">
-                  <label className={`text-sm font-semibold flex items-center gap-2 transition-colors ${isFocused === 'content' ? 'text-[#47B960]' : 'text-[#555555]'}`}>
+                  <label className={`text-sm font-semibold flex items-center gap-2 transition-colors ${isFocused === 'content' ? 'text-success' : 'text-neutral-600'}`}>
                     <AlignLeft className="w-4 h-4" />
                     Content
                   </label>
                   <div className="flex items-center gap-2">
                     <div className="w-24 h-1.5 bg-[#f0f0f0] rounded-full overflow-hidden">
                       <motion.div 
-                        className="h-full bg-gradient-to-r from-[#47B960] to-[#6bc780] rounded-full"
+                        className="h-full bg-linear-to-r from-success to-[#6bc780] rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: `${contentProgress}%` }}
                       />
                     </div>
-                    <span className="text-xs text-[#999999] font-medium">{safeContent.length}/1000</span>
+                    <span className="text-xs text-neutral-400 font-medium">{safeContent.length}/1000</span>
                   </div>
                 </div>
                 <textarea 
-                  className={`w-full bg-[#f8f9fa] border-2 rounded-xl px-4 py-3.5 min-h-[200px] outline-none transition-all duration-300 resize-y text-[#333333] placeholder-[#aaaaaa] font-medium leading-relaxed
+                  className={`w-full bg-neutral-100 border-2 rounded-xl px-4 py-3.5 min-h-[200px] outline-none transition-all duration-300 resize-y text-neutral-700 placeholder-neutral-400 font-medium leading-relaxed
                     ${isFocused === 'content' 
-                      ? 'border-[#47B960] bg-white shadow-[0_0_0_4px_rgba(71,185,96,0.1)]' 
-                      : 'border-[#e0e0e0] hover:border-[#d0d0d0]'
+                      ? 'border-success bg-white shadow-[0_0_0_4px_rgba(71,185,96,0.1)]' 
+                      : 'border-neutral-200 hover:border-neutral-300'
                     }`}
                   value={safeContent}
                   onChange={(e) => setContent(e.target.value.slice(0, 1000))}
@@ -172,19 +172,19 @@ export function EditModal({
                   onBlur={() => setIsFocused(null)}
                   placeholder="Write your content here..."
                 />
-                <p className="text-xs text-[#999999] flex items-center gap-1">
+                <p className="text-xs text-neutral-400 flex items-center gap-1">
                   <Check className="w-3 h-3" />
                   Pro tip: Press Cmd/Ctrl + Enter to save quickly
                 </p>
               </motion.div>
             </div>
 
-            <div className="p-6 bg-gradient-to-r from-[#f8f9fa] to-[#f5f5f5] border-t border-[#e8e8e8] flex justify-end gap-3">
+            <div className="p-6 bg-linear-to-r from-neutral-100 to-neutral-100 border-t border-neutral-200 flex justify-end gap-3">
               <motion.button 
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={onClose}
-                className="px-6 py-3 border-2 border-[#e0e0e0] rounded-xl font-semibold text-[#555555] hover:border-[#999999] hover:bg-white transition-all duration-200"
+                className="px-6 py-3 border-2 border-neutral-200 rounded-xl font-semibold text-neutral-600 hover:border-neutral-400 hover:bg-white transition-all duration-200"
               >
                 Cancel
               </motion.button>
@@ -196,8 +196,8 @@ export function EditModal({
                 className={`
                   flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg
                   ${hasChanges 
-                    ? 'bg-gradient-to-r from-[#47B960] to-[#3da852] text-white shadow-[#47B960]/30 hover:shadow-xl hover:shadow-[#47B960]/40' 
-                    : 'bg-[#e8e8e8] text-[#aaaaaa] cursor-not-allowed shadow-none'
+                    ? 'bg-linear-to-r from-success to-[#3da852] text-white shadow-success/30 hover:shadow-xl hover:shadow-success/40' 
+                    : 'bg-neutral-200 text-neutral-400 cursor-not-allowed shadow-none'
                   }
                 `}
               >

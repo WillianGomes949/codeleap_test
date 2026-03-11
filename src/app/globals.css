@@ -1,26 +1,95 @@
+/* globals.css */
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Cores da identidade CodeLeap */
+  --primary-blue: #7695ec;
+  --primary-blue-dark: #5a7bd4;
+  --primary-blue-light: #93b0f0;
+
+  --success-green: #47b960;
+  --success-green-dark: #3da852;
+  --success-green-light: #6bc780;
+
+  --danger-red: #ff5151;
+  --danger-red-dark: #e04545;
+  --danger-red-light: #ff7a7a;
+
+  --neutral-100: #ffffff;
+  --neutral-200: #dddddd;
+  --neutral-300: #cccccc;
+  --neutral-400: #999999;
+  --neutral-500: #777777;
+  --neutral-600: #555555;
+  --neutral-700: #333333;
+  --neutral-800: #1a1a1a;
+  --neutral-900: #000000;
+
+  /* Tokens semânticos */
+  --card-background: var(--neutral-100);
+  --border-color: var(--neutral-400);
+  --text-muted: var(--neutral-500);
+  --text-primary: var(--neutral-800);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-background: var(--neutral-200);
+  --color-foreground: var(--neutral-800);
+
+  /* Cores customizadas do tema */
+  --color-primary-blue: var(--primary-blue);
+  --color-primary-dark: var(--primary-blue-dark);
+  --color-primary-light: var(--primary-blue-light);
+
+  --color-success: var(--success-green);
+  --color-success-dark: var(--success-green-dark);
+  --color-success-light: var(--success-green-light);
+
+  --color-danger: var(--danger-red);
+  --color-danger-dark: var(--danger-red-dark);
+  --color-danger-light: var(--danger-red-light);
+
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--neutral-800);
+    --foreground: var(--neutral-100);
+    --card-background: var(--neutral-700);
+    --border-color: var(--neutral-600);
+    --text-muted: var(--neutral-400);
+    --text-primary: var(--neutral-100);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Scrollbar estilizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-300);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-blue-dark);
 }
