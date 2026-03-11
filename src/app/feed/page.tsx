@@ -14,7 +14,6 @@ import { Toaster, toast } from "sonner";
 import TopButton from "@/src/components/ui/TopButton";
 import { SkeletonLoader } from "@/src/components/ui/SkeletonLoader";
 
-
 export default function FeedPage() {
   const { posts, deletePost, updatePost, isLoading } = usePosts();
   const { logout } = useUser();
@@ -37,7 +36,8 @@ export default function FeedPage() {
   const handleEdit = (title: string, content: string) => {
     if (selectedPost) {
       updatePost(
-        { id: selectedPost.id, data: { title, content } },
+        selectedPost.id,
+        { title, content },
         {
           onSuccess: () => {
             setIsEditOpen(false);
@@ -83,33 +83,34 @@ export default function FeedPage() {
             {isLoading ? (
               <SkeletonLoader />
             ) : (
-            <AnimatePresence mode="popLayout">
-              {posts.map((post) => (
-                <motion.div
-                  key={post.id}
-                  layout // Faz os outros posts deslizarem suavemente quando um sai
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{
-                    opacity: 0,
-                    scale: 0.5,
-                    transition: { duration: 0.2 },
-                  }}
-                >
-                  <PostCard
-                    post={post}
-                    onEdit={() => {
-                      setSelectedPost(post);
-                      setIsEditOpen(true);
+              <AnimatePresence mode="popLayout">
+                {posts.map((post) => (
+                  <motion.div
+                    key={post.id}
+                    layout // Faz os outros posts deslizarem suavemente quando um sai
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0.5,
+                      transition: { duration: 0.2 },
                     }}
-                    onDelete={() => {
-                      setSelectedPost(post);
-                      setIsDeleteOpen(true);
-                    }}
-                  />
-                </motion.div>
-              ))}
-            </AnimatePresence>)}
+                  >
+                    <PostCard
+                      post={post}
+                      onEdit={() => {
+                        setSelectedPost(post);
+                        setIsEditOpen(true);
+                      }}
+                      onDelete={() => {
+                        setSelectedPost(post);
+                        setIsDeleteOpen(true);
+                      }}
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            )}
           </div>
         </section>
       </motion.section>

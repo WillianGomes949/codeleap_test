@@ -18,7 +18,7 @@ export function CreatePost() {
   const handleCreate = () => {
     if (username && title.trim() && content.trim()) {
       createPost(
-        { username, title: title.trim(), content: content.trim() },
+        { title: title.trim(), content: content.trim() },
         {
           onSuccess: () => {
             setTitle("");
