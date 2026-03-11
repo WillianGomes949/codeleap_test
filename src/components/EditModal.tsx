@@ -80,7 +80,7 @@ export function EditModal({
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
-                  className="w-12 h-12 bg-linear-to-br from-success to-[#3da852] rounded-xl flex items-center justify-center text-white shadow-lg shadow-success/30"
+                  className="w-12 h-12 bg-linear-to-br from-success to-success rounded-xl flex items-center justify-center text-white shadow-lg shadow-success/30"
                 >
                   <Edit3 className="w-6 h-6" />
                 </motion.div>
@@ -112,9 +112,9 @@ export function EditModal({
                     Title
                   </label>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 h-1.5 bg-[#f0f0f0] rounded-full overflow-hidden">
+                    <div className="w-24 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
                       <motion.div 
-                        className="h-full bg-linear-to-r from-success to-[#6bc780] rounded-full"
+                        className="h-full bg-linear-to-r from-success to-success-light rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: `${titleProgress}%` }}
                       />
@@ -126,7 +126,7 @@ export function EditModal({
                   type="text"
                   className={`w-full bg-neutral-100 border-2 rounded-xl px-4 py-3.5 outline-none transition-all duration-300 text-neutral-700 placeholder-neutral-400 font-medium
                     ${isFocused === 'title' 
-                      ? 'border-success bg-white shadow-[0_0_0_4px_rgba(71,185,96,0.1)]' 
+                      ? 'border-success bg-white shadow-sm' 
                       : 'border-neutral-200 hover:border-neutral-300'
                     }`}
                   value={safeTitle}
@@ -150,9 +150,9 @@ export function EditModal({
                     Content
                   </label>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 h-1.5 bg-[#f0f0f0] rounded-full overflow-hidden">
+                    <div className="w-24 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
                       <motion.div 
-                        className="h-full bg-linear-to-r from-success to-[#6bc780] rounded-full"
+                        className="h-full bg-linear-to-r from-success to-success-light] rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: `${contentProgress}%` }}
                       />
@@ -161,9 +161,9 @@ export function EditModal({
                   </div>
                 </div>
                 <textarea 
-                  className={`w-full bg-neutral-100 border-2 rounded-xl px-4 py-3.5 min-h-[200px] outline-none transition-all duration-300 resize-y text-neutral-700 placeholder-neutral-400 font-medium leading-relaxed
+                  className={`w-full bg-neutral-100 border-2 rounded-xl px-4 py-3.5 min-h-50 outline-none transition-all duration-300 resize-y text-neutral-700 placeholder-neutral-400 font-medium leading-relaxed
                     ${isFocused === 'content' 
-                      ? 'border-success bg-white shadow-[0_0_0_4px_rgba(71,185,96,0.1)]' 
+                      ? 'border-success bg-white shadow-sm' 
                       : 'border-neutral-200 hover:border-neutral-300'
                     }`}
                   value={safeContent}
@@ -196,7 +196,7 @@ export function EditModal({
                 className={`
                   flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg
                   ${hasChanges 
-                    ? 'bg-linear-to-r from-success to-[#3da852] text-white shadow-success/30 hover:shadow-xl hover:shadow-success/40' 
+                    ? 'bg-linear-to-r from-success to-successtext-white shadow-success/30 hover:shadow-xl hover:shadow-success/40' 
                     : 'bg-neutral-200 text-neutral-400 cursor-not-allowed shadow-none'
                   }
                 `}
