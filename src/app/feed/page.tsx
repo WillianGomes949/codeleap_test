@@ -11,6 +11,7 @@ import { Post } from "@/src/hooks/usePosts";
 import { useUser } from "@/src/context/UserContext";
 import { LogOut } from "lucide-react";
 import { Toaster, toast } from "sonner";
+import TopButton from "@/src/components/ui/TopButton";
 
 export default function FeedPage() {
   const { posts, deletePost, updatePost } = usePosts();
@@ -49,7 +50,7 @@ export default function FeedPage() {
   };
 
   return (
-    <main className="min-h-screen bg-neutral-200 flex flex-col items-center">
+    <main className="relative min-h-screen bg-neutral-200 flex flex-col items-center">
       <Toaster position="top-right" richColors />
 
       {/* Header Responsivo */}
@@ -117,6 +118,7 @@ export default function FeedPage() {
         onTitleChange={setEditTitle}
         onContentChange={setEditContent}
       />
-    </main>
+    
+    <TopButton/></main>
   );
 }

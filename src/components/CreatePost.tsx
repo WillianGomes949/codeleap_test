@@ -60,7 +60,6 @@ export function CreatePost() {
         <div className="flex-1">
           <h2 className="text-xl font-bold text-neutral-700 flex items-center gap-2">
             What{"'"}s on your mind?
-            <Sparkles className="w-4 h-4 text-primary-blue" />
           </h2>
           <p className="text-sm text-neutral-500">
             Share your thoughts with the community
@@ -104,7 +103,7 @@ export function CreatePost() {
           transition={{ duration: 0.2 }}
         >
           <label
-            className={`block text-sm font-semibold mb-2 transition-colors duration-200 items-center gap-2 ${isFocused === "content" ? "text-primary-blue" : "text-neutral-600"}`}
+            className={`text-sm font-semibold mb-2 transition-colors flex duration-200 items-center gap-2 ${isFocused === "content" ? "text-primary-blue" : "text-neutral-600"}`}
           >
             <AlignLeft className="w-4 h-4" />
             Content
@@ -123,7 +122,7 @@ export function CreatePost() {
             onChange={(e) => setContent(e.target.value.slice(0, 1000))}
             onFocus={() => setIsFocused("content")}
             onBlur={() => setIsFocused(null)}
-            placeholder="Write your thoughts here... Be creative! ✨"
+            placeholder="Write your thoughts here... Be creative!"
           />
         </motion.div>
       </div>
