@@ -12,9 +12,11 @@ import { useUser } from "@/src/context/UserContext";
 import { LogOut } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import TopButton from "@/src/components/ui/TopButton";
+import { SkeletonLoader } from "@/src/components/ui/SkeletonLoader";
+
 
 export default function FeedPage() {
-  const { posts, deletePost, updatePost } = usePosts();
+  const { posts, deletePost, updatePost, isLoading } = usePosts();
   const { logout } = useUser();
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -78,6 +80,9 @@ export default function FeedPage() {
           <CreatePost />
 
           <div className="mt-6 flex flex-col gap-4">
+            {isLoading ? (
+              <SkeletonLoader />
+            ) : (
             <AnimatePresence mode="popLayout">
               {posts.map((post) => (
                 <motion.div
@@ -104,7 +109,7 @@ export default function FeedPage() {
                   />
                 </motion.div>
               ))}
-            </AnimatePresence>
+            </AnimatePresence>)}
           </div>
         </section>
       </motion.section>
