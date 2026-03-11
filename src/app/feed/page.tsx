@@ -19,8 +19,6 @@ export default function FeedPage() {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
-  const [editTitle, setEditTitle] = useState("");
-  const [editContent, setEditContent] = useState("");
 
   const handleDelete = () => {
     if (selectedPost) {
@@ -120,16 +118,15 @@ export default function FeedPage() {
       />
 
       <EditModal
+        key={selectedPost?.id}
         isOpen={isEditOpen}
         onClose={() => {
           setIsEditOpen(false);
           setSelectedPost(null);
         }}
         onSave={handleEdit}
-        title={editTitle}
-        content={editContent}
-        onTitleChange={setEditTitle}
-        onContentChange={setEditContent}
+        initialTitle={selectedPost?.title || ""}
+        initialContent={selectedPost?.content || ""}
       />
 
       <TopButton />
