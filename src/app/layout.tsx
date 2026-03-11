@@ -1,26 +1,30 @@
-'use client'
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from 'react';
-import { UserProvider } from "@/src/context/UserContext";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { QueryProvider } from '@/providers/QueryProvider';
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+import { UserProvider } from '../context/UserContext';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient());
-  
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'CodeLeap Network',
+  description: 'Share your thoughts with the world',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth`}>
-        <QueryClientProvider client={queryClient}>
+      <body className={inter.className}>
+        <QueryProvider>
           <UserProvider>
             {children}
           </UserProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        </QueryProvider>
       </body>
     </html>
   );

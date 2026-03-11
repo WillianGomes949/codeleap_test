@@ -48,7 +48,7 @@ export default function FeedPage() {
   };
 
   return (
-    <main className="relative min-h-screen bg-neutral-200 flex flex-col items-center">
+    <main className="relative min-h-screen bg-neutral-200 flex flex-col items-center p-2">
       <Toaster position="top-right" richColors />
 
       {/* Container Principal: Card Flutuante */}

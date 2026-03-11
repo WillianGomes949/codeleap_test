@@ -4,10 +4,10 @@
 import { Trash2, Edit, MessageCircle, Clock } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { enUS } from 'date-fns/locale';
-import { useUser } from '@/src/context/UserContext';
-import { Post } from '@/src/hooks/usePosts';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useUser } from '../context/UserContext';
+import { Post } from '../hooks/usePosts';
 
 interface PostCardProps {
   post: Post;
@@ -35,9 +35,10 @@ export function PostCard({ post, onEdit, onDelete, index = 0 }: PostCardProps) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.5, delay: index * 0.1, type: 'spring', damping: 20 }}
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      className="group bg-white rounded-2xl overflow-hidden mb-6 shadow-sm hover:shadow-sm transition-all duration-500 border border-neutral-200 hover:border-primary-blue/30"
+      className="group bg-white rounded-2xl overflow-hidden mb-6 shadow-sm hover:shadow-sm transition-all duration-500 border border-neutral-200 hover:border-primary-blue/30 "
     >
-      <header className="bg-linear-to-r from-primary-blue to-primary-dark p-5 flex justify-between items-center text-white relative overflow-hidden">
+      <header className={isOwner ?  `bg-linear-to-r from-success-dark to-success p-5 flex justify-between items-center text-white relative overflow-hidden` : `bg-linear-to-r from-primary-blue to-primary-dark p-5 flex justify-between items-center text-white relative overflow-hidden`
+              }>
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         
         <h2 className="text-lg font-bold truncate pr-4 relative z-10 flex items-center gap-3">
@@ -87,8 +88,8 @@ export function PostCard({ post, onEdit, onDelete, index = 0 }: PostCardProps) {
             <div>
               <span className="font-bold text-neutral-700 block text-sm">@{post.username}</span>
               {isOwner && (
-                <span className="text-xs font-medium px-2 py-0.5 bg-primary-blue/10 text-primary-blue rounded-full">
-                  Your post, {post.username} - you can edit it.
+                <span className="text-xs font-medium px-2 py-0.5 bg-success/10 text-success rounded-full">
+                  You
                 </span>
               )}
             </div>
@@ -96,7 +97,7 @@ export function PostCard({ post, onEdit, onDelete, index = 0 }: PostCardProps) {
           
           <div className="flex items-center gap-2 text-xs text-neutral-500 bg-neutral-100 px-3 py-2 rounded-full border border-neutral-200">
             <Clock className="w-3.5 h-3.5" />
-            <span className="font-medium">{formattedDate}</span>
+            <span className="font-normal">{formattedDate}</span>
           </div>
         </div>
         

@@ -5,8 +5,8 @@ import { useRouter, usePathname } from 'next/navigation';
 
 interface UserContextType {
   username: string | null;
-  login: (name: string) => void;
-  logout: () => void;
+  login: (name: string) => Promise<void>;
+  logout: () => Promise<void>;
   isReady: boolean;
 }
 
@@ -29,16 +29,19 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  // 1. Carregamento inicial do localStorage (Roda apenas uma vez no mount do cliente)
+  // 1. Carregamento inicial da sessão (cookie) - funciona em qualquer navegador
   useEffect(() => {
-    const initUser = () => {
+    const initUser = async () => {
       try {
-        const storedUsername = localStorage.getItem('@codeleap:username');
-        if (storedUsername) {
-          setUsername(storedUsername);
+        const res = await fetch('/api/auth/session', {
+          credentials: 'include',
+        });
+        const data = await res.json();
+        if (data.user) {
+          setUsername(data.user.username);
         }
       } catch (error) {
-        console.error('Error accessing localStorage:', error);
+        console.error('Error accessing session:', error);
       } finally {
         setIsReady(true);
       }
@@ -54,25 +57,41 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     const isPublicRoute = pathname === '/';
 
     if (username && isPublicRoute) {
-      router.replace('/feed'); // Use replace para não sujar o histórico
+      router.replace('/feed');
     } else if (!username && !isPublicRoute) {
       router.replace('/');
     }
   }, [username, pathname, isReady, router]);
 
-  const login = useCallback((name: string) => {
+  const login = useCallback(async (name: string) => {
     try {
-      localStorage.setItem('@codeleap:username', name);
-      setUsername(name);
-      // O useEffect acima cuidará do redirecionamento automaticamente
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: name }),
+        credentials: 'include',
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.user) {
+        setUsername(data.user.username);
+        // O useEffect acima cuidará do redirecionamento automaticamente
+      } else {
+        throw new Error(data.error || 'Login failed');
+      }
     } catch (error) {
       console.error('Error saving user:', error);
+      throw error;
     }
   }, []);
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
     try {
-      localStorage.removeItem('@codeleap:username');
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
       setUsername(null);
     } catch (error) {
       console.error('Error during logout:', error);
@@ -87,8 +106,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     isReady
   }), [username, login, logout, isReady]);
 
-  // Bloqueia a renderização até que o localStorage tenha sido verificado
-  // Isso evita o "flash" de conteúdo não autenticado ou erros de hidratação
+  // Bloqueia a renderização até que a sessão tenha sido verificada
   if (!isReady) {
     return <LoadingScreen />;
   }
