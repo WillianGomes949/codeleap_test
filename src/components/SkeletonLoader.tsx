@@ -13,7 +13,7 @@ export function SkeletonLoader() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: index * 0.15 }}
-          className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.08)] border border-[#f0f0f0]"
+          className="bg-white rounded-2xl overflow-hidden shadow-sm border border-neutral-200"
         >
           {/* Header Skeleton */}
           <div className="bg-linear-to-r from-primary-blue/20 to-primary-dark/20 h-16 px-5 flex items-center justify-between">
@@ -28,16 +28,16 @@ export function SkeletonLoader() {
           <div className="p-6 space-y-4">
             <div className="flex justify-between items-center mb-4">
               <div className="flex items-center gap-3">
-                <div className="h-11 w-11 bg-[#f0f0f0] rounded-xl animate-pulse" />
-                <div className="h-4 bg-[#f0f0f0] rounded-lg w-24 animate-pulse" />
+                <div className="h-11 w-11 bg-neutral-200 rounded-xl animate-pulse" />
+                <div className="h-4 bg-neutral-200 rounded-lg w-24 animate-pulse" />
               </div>
               <div className="h-8 bg-neutral-100 rounded-full w-28 animate-pulse" />
             </div>
             
             <div className="space-y-3">
-              <div className="h-4 bg-[#f0f0f0] rounded-lg w-full animate-pulse" />
-              <div className="h-4 bg-[#f0f0f0] rounded-lg w-[95%] animate-pulse" />
-              <div className="h-4 bg-[#f0f0f0] rounded-lg w-[80%] animate-pulse" />
+              <div className="h-4 bg-neutral-200 rounded-lg w-full animate-pulse" />
+              <div className="h-4 bg-neutral-200 rounded-lg w-[95%] animate-pulse" />
+              <div className="h-4 bg-neutral-200 rounded-lg w-[80%] animate-pulse" />
             </div>
           </div>
         </motion.article>
