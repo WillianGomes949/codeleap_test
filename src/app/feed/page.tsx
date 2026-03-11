@@ -56,7 +56,7 @@ export default function FeedPage() {
       <Toaster position="top-right" richColors />
 
       {/* Header Responsivo */}
-      <header className="w-full max-w-[800px] bg-[#7695EC] p-4 sm:p-7 flex items-center justify-between shadow-sm sticky top-0 z-40">
+      <header className="w-full max-w-200 bg-[#7695EC] p-4 sm:p-7 flex items-center justify-between shadow-sm sticky top-0 z-40">
         <h1 className="text-white text-xl sm:text-2xl font-bold">
           CodeLeap Network
         </h1>
@@ -72,7 +72,7 @@ export default function FeedPage() {
       </header>
 
       {/* Container Adaptável */}
-      <section className="w-full max-w-[800px] bg-white min-h-screen p-4 sm:p-6 shadow-sm">
+      <section className="w-full max-w-200 bg-white min-h-screen p-4 sm:p-6 shadow-sm">
         <CreatePost />
 
         <div className="mt-6 flex flex-col gap-4">
