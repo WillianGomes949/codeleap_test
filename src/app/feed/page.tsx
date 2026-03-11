@@ -1,23 +1,28 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { usePosts } from '@/src/hooks/usePosts';
-import { CreatePost } from '@/src/components/CreatePost';
-import { PostCard } from '@/src/components/PostCard';
-import { DeleteModal } from '@/src/components/DeleteModal';
-import { EditModal } from '@/src/components/EditModal';
-import { Post } from '@/src/hooks/usePosts';
-import { useUser } from '@/src/context/UserContext'; // Importar o contexto do usuário
-import { LogOut } from 'lucide-react'; // Ícone moderno de saída
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { usePosts } from "@/src/hooks/usePosts";
+import { CreatePost } from "@/src/components/CreatePost";
+import { PostCard } from "@/src/components/PostCard";
+import { DeleteModal } from "@/src/components/DeleteModal";
+import { EditModal } from "@/src/components/EditModal";
+import { Post } from "@/src/hooks/usePosts";
+import { useUser } from "@/src/context/UserContext";
+import { LogOut } from "lucide-react";
+import { Toaster, toast } from "sonner";
 
 export default function FeedPage() {
   const { posts, deletePost, updatePost } = usePosts();
-  const { logout } = useUser(); // Pegar a função de logout
-  
+  const { logout } = useUser();
+
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
+
+  // Estados para controlar o modal de edição
+  const [editTitle, setEditTitle] = useState("");
+  const [editContent, setEditContent] = useState("");
 
   const handleDelete = () => {
     if (selectedPost) {
@@ -25,7 +30,8 @@ export default function FeedPage() {
         onSuccess: () => {
           setIsDeleteOpen(false);
           setSelectedPost(null);
-        }
+          toast.success("Post deleted successfully!");
+        },
       });
     }
   };
@@ -34,46 +40,53 @@ export default function FeedPage() {
     if (selectedPost) {
       updatePost(
         { id: selectedPost.id, data: { title, content } },
-        { onSuccess: () => {
-          setIsEditOpen(false);
-          setSelectedPost(null);
-        }}
+        {
+          onSuccess: () => {
+            setIsEditOpen(false);
+            setSelectedPost(null);
+            toast.success("Post Edit successfully!");
+          },
+        },
       );
     }
   };
 
   return (
     <main className="min-h-screen bg-[#DDDDDD] flex flex-col items-center">
-      {/* Header Fixo - Adicionado botão de Logout */}
-      <header className="w-full max-w-200 bg-[#7695EC] p-7 flex items-center justify-between shadow-sm">
-        <h1 className="text-white text-2xl font-bold">CodeLeap Network</h1>
-        
+      <Toaster position="top-right" richColors />
+
+      {/* Header Responsivo */}
+      <header className="w-full max-w-[800px] bg-[#7695EC] p-4 sm:p-7 flex items-center justify-between shadow-sm sticky top-0 z-40">
+        <h1 className="text-white text-xl sm:text-2xl font-bold">
+          CodeLeap Network
+        </h1>
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={logout}
-          className="text-white flex items-center gap-2 hover:text-red-200 transition-colors font-bold"
-          title="Logout"
+          className="text-white flex items-center gap-2 font-bold bg-white/10 px-3 py-1 rounded-lg hover:bg-white/20 transition-colors"
         >
-          <span className="hidden sm:inline">Logout</span>
-          <LogOut size={24} />
+          <span className="hidden xs:inline">Logout</span>
+          <LogOut size={20} />
         </motion.button>
       </header>
 
-      <section className="w-full max-w-200 bg-white min-h-screen p-6 shadow-sm">
+      {/* Container Adaptável */}
+      <section className="w-full max-w-[800px] bg-white min-h-screen p-4 sm:p-6 shadow-sm">
         <CreatePost />
 
-        <div className="mt-6">
-          <AnimatePresence>
+        <div className="mt-6 flex flex-col gap-4">
+          <AnimatePresence mode="popLayout">
             {posts.map((post) => (
               <motion.div
                 key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
+                layout // Faz os outros posts deslizarem suavemente quando um sai
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
               >
-                <PostCard 
-                  post={post} 
+                <PostCard
+                  post={post}
                   onEdit={() => {
                     setSelectedPost(post);
                     setIsEditOpen(true);
@@ -89,18 +102,23 @@ export default function FeedPage() {
         </div>
       </section>
 
-      <DeleteModal 
-        isOpen={isDeleteOpen} 
-        onClose={() => setIsDeleteOpen(false)} 
-        onConfirm={handleDelete} 
+      <DeleteModal
+        isOpen={isDeleteOpen}
+        onClose={() => setIsDeleteOpen(false)}
+        onConfirm={handleDelete}
       />
 
-      <EditModal 
-        isOpen={isEditOpen} 
-        onClose={() => setIsEditOpen(false)} 
+      <EditModal
+        isOpen={isEditOpen}
+        onClose={() => {
+          setIsEditOpen(false);
+          setSelectedPost(null);
+        }}
         onSave={handleEdit}
-        initialTitle={selectedPost?.title || ''}
-        initialContent={selectedPost?.content || ''}
+        title={editTitle}
+        content={editContent}
+        onTitleChange={setEditTitle}
+        onContentChange={setEditContent}
       />
     </main>
   );

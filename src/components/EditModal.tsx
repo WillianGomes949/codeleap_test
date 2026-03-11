@@ -1,5 +1,6 @@
-// EditModal.tsx
+// EditModal.tsx - Versão uncontrolled
 'use client';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Save, Edit3 } from 'lucide-react';
 
@@ -7,28 +8,32 @@ interface EditModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (title: string, content: string) => void;
-  title: string;
-  content: string;
-  onTitleChange: (value: string) => void;
-  onContentChange: (value: string) => void;
+  initialTitle: string;
+  initialContent: string;
 }
 
 export function EditModal({ 
   isOpen, 
   onClose, 
   onSave, 
-  title = '',        // Fallback para string vazia
-  content = '',      // Fallback para string vazia
-  onTitleChange, 
-  onContentChange 
+  initialTitle = '',        
+  initialContent = '',      
 }: EditModalProps) {
-  // Garante que sempre seja string, mesmo se vier undefined/null
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+
+  // Atualiza estado quando o modal abre com novos valores
+  useEffect(() => {
+    if (isOpen) {
+      setTitle(initialTitle);
+      setContent(initialContent);
+    }
+  }, [isOpen, initialTitle, initialContent]);
+
   const safeTitle = String(title ?? '');
   const safeContent = String(content ?? '');
   
   const hasChanges = safeTitle.trim().length > 0 && safeContent.trim().length > 0;
-  const titleChars = safeTitle.length;
-  const contentChars = safeContent.length;
 
   const handleSave = () => {
     if (hasChanges) {
@@ -41,16 +46,17 @@ export function EditModal({
     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) handleSave();
   };
 
-  // Handlers seguros para onChange
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    onTitleChange(value.slice(0, 100));
+    setTitle(value.slice(0, 100));
   };
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    onContentChange(value.slice(0, 1000));
+    setContent(value.slice(0, 1000));
   };
+
+  if (!isOpen) return null;
 
   return (
     <AnimatePresence>
@@ -99,11 +105,12 @@ export function EditModal({
                 <div className="flex justify-between items-center">
                   <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                     Title
-                    <span className="text-xs font-normal text-gray-400">({titleChars}/100)</span>
+                    <span className="text-xs font-normal text-gray-400">({safeTitle.length}/100)</span>
                   </label>
                 </div>
                 <input 
-                  className="w-full border border-[#777777] rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#47B960]/30 focus:border-[#47B960] transition-all duration-200 text-gray-900 placeholder-gray-400"
+                  type="text"
+                  className="w-full border border-[#777777] rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#47B960]/30 focus:border-[#47B960] transition-all duration-200 text-gray-900 placeholder-gray-400 bg-white"
                   value={safeTitle}
                   onChange={handleTitleChange}
                   placeholder="Enter post title..."
@@ -115,12 +122,12 @@ export function EditModal({
                 <div className="flex justify-between items-center">
                   <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
                     Content
-                    <span className="text-xs font-normal text-gray-400">({contentChars}/1000)</span>
+                    <span className="text-xs font-normal text-gray-400">({safeContent.length}/1000)</span>
                   </label>
                   <span className="text-xs text-gray-400">Pro tip: Press Cmd/Ctrl + Enter to save</span>
                 </div>
                 <textarea 
-                  className="w-full border border-[#777777] rounded-lg px-4 py-3 min-h-[200px] outline-none focus:ring-2 focus:ring-[#47B960]/30 focus:border-[#47B960] transition-all duration-200 resize-none text-gray-900 placeholder-gray-400 leading-relaxed"
+                  className="w-full border border-[#777777] rounded-lg px-4 py-3 min-h-48 outline-none focus:ring-2 focus:ring-[#47B960]/30 focus:border-[#47B960] transition-all duration-200 resize-y text-gray-900 placeholder-gray-400 leading-relaxed bg-white"
                   value={safeContent}
                   onChange={handleContentChange}
                   placeholder="Write your content here..."

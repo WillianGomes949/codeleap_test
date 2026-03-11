@@ -2,11 +2,10 @@
 'use client';
 
 import { Trash2, Edit, MessageCircle, Clock } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
-import { enUS } from 'date-fns/locale';
 import { useUser } from '@/src/context/UserContext';
 import { Post } from '@/src/hooks/usePosts';
 import { motion } from 'framer-motion';
+import { ClientDate } from './ClientDate';
 
 interface PostCardProps {
   post: Post;
@@ -69,7 +68,7 @@ export function PostCard({ post, onEdit, onDelete, index = 0 }: PostCardProps) {
           <div className="flex items-center gap-1.5 text-sm text-[#777777] bg-gray-50 px-3 py-1.5 rounded-full">
             <Clock className="w-3.5 h-3.5" />
             <span>
-              {formatDistanceToNow(new Date(post.created_datetime), { addSuffix: true, locale: enUS })}
+              <ClientDate date={post.created_datetime} />
             </span>
           </div>
         </div>
