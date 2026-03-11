@@ -1,3 +1,7 @@
+# LINK: https://codeleap-test-eosin.vercel.app/
+
+---
+
 # 🚀 CodeLeap Network - Modern CRUD Application
 
 A high-performance, responsive social networking application built for the CodeLeap technical assessment. This project demonstrates a robust implementation of **Next.js 15**, **TanStack Query**, and **Framer Motion**, focusing on clean architecture and exceptional User Experience (UX).
