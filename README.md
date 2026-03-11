@@ -1,4 +1,4 @@
-# LINK: https://codeleap-test-eosin.vercel.app/
+# Project page: https://codeleap-test-eosin.vercel.app/
 
 ---
 
