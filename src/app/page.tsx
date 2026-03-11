@@ -53,7 +53,7 @@ export default function Signup() {
             className="space-y-2"
           >
             <label className="block text-sm font-semibold text-neutral-600 ml-1">
-              Choose your username
+              Please enter your username
             </label>
             <div className={`relative transition-all duration-300 ${isFocused ? 'transform scale-[1.02]' : ''}`}>
               <div className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400">
@@ -61,7 +61,7 @@ export default function Signup() {
               </div>
               <input 
                 type="text"
-                placeholder="johndoe"
+                placeholder="john doe"
                 className="w-full bg-neutral-100 border-2 border-neutral-300 rounded-xl pl-12 pr-4 py-4 outline-none transition-all duration-200 text-neutral-700 placeholder-neutral-400 font-medium
                   focus:border-primary-blue focus:bg-white hover:border-neutral-300"
                 value={name}
@@ -93,7 +93,7 @@ export default function Signup() {
                 }`}
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
-                Enter Platform
+                Enter
                 <ArrowRight className={`w-5 h-5 transition-transform duration-300 ${name.trim() ? 'group-hover:translate-x-1' : ''}`} />
               </span>
               {name.trim() && (
@@ -107,15 +107,6 @@ export default function Signup() {
             </motion.button>
           </motion.div>
         </form>
-
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="text-center text-xs text-neutral-400 mt-6"
-        >
-          By entering, you agree to our Terms of Service and Privacy Policy
-        </motion.p>
       </motion.div>
     </main>
   );

@@ -152,7 +152,7 @@ export function CreatePost() {
                 className="flex items-center gap-2"
               >
                 <Loader2 className="w-5 h-5 animate-spin" />
-                Publishing...
+                Creating post...
               </motion.span>
             ) : (
               <motion.span
@@ -163,7 +163,7 @@ export function CreatePost() {
                 className="flex items-center gap-2"
               >
                 <Send className="w-5 h-5" />
-                Publish Post
+                Create
               </motion.span>
             )}
           </AnimatePresence>
