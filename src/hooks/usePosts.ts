@@ -3,7 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUser } from "../context/UserContext";
 
-const API_URL = "/api/posts-proxy/route.ts";
+const API_URL = 'https://dev.codeleap.co.uk/careers';
 
 export interface Post {
   id: number;
@@ -25,7 +25,7 @@ interface UpdatePostData {
 }
 
 const fetchPosts = async (): Promise<Post[]> => {
-  const url = `${API_URL}?t=${Date.now()}`; // sem / antes de ?
+  const url = `${API_URL}/?t=${Date.now()}`; // sem / antes de ?
   console.log("Buscando:", url);
 
   const response = await fetch(url);
