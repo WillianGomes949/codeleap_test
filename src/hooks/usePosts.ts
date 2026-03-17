@@ -3,7 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUser } from "../context/UserContext";
 
-const API_URL = "./api/posts-proxy";
+const API_URL = "/api/posts-proxy/route.ts";
 
 export interface Post {
   id: number;
