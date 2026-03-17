@@ -3,7 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUser } from '../context/UserContext';
 
-const API_URL = 'https://dev.codeleap.co.uk/careers';
+const API_URL = '/api/posts-proxy';
 
 export interface Post {
   id: number;
