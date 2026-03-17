@@ -30,11 +30,6 @@ const fetchPosts = async (): Promise<Post[]> => {
   
   const response = await fetch(url, {
     method: 'GET',
-    headers: {
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    },
     cache: 'no-store' // ← importante no Firefox
   });
   
@@ -43,7 +38,6 @@ const fetchPosts = async (): Promise<Post[]> => {
   }
   
   const data = await response.json();
-  console.log('Posts recebidos:', data.results?.length || 0); // debug
   return data.results || [];
 };
 
