@@ -10,10 +10,10 @@ export async function GET() {
     return NextResponse.json({ user: null });
   }
 
-  // Busca no banco pelo ID
+  // Busca no banco. Se o usuário existir no Postgres, o PC e o Celular verão o mesmo dado.
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    select: { id: true, username: true } // Incluir id também
+    select: { username: true }
   });
   
   return NextResponse.json({ user });
