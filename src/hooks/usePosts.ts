@@ -30,7 +30,6 @@ const fetchPosts = async (): Promise<Post[]> => {
   
   const response = await fetch(url, {
     method: 'GET',
-    cache: 'no-store' // ← importante no Firefox
   });
   
   if (!response.ok) {
