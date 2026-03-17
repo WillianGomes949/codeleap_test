@@ -25,8 +25,10 @@ interface UpdatePostData {
 }
 
 const fetchPosts = async (): Promise<Post[]> => {
-  const cacheBuster = `?t=${Date.now()}`;
-  const response = await fetch(`${API_URL}${cacheBuster}`);
+  const url = `${API_URL}?t=${Date.now()}`; // sem / antes de ?
+  console.log("Buscando:", url);
+
+  const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error("Failed to fetch posts");
