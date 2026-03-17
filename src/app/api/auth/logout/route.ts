@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST() {
   const cookieStore = await cookies();
-  cookieStore.delete('@codeleap:username'); 
+  cookieStore.delete('@codeleap:userId'); 
   
   return NextResponse.json({ success: true });
 }

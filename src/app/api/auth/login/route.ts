@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
     // Salva no cookie (sessão)
     const cookieStore = await cookies();
-    cookieStore.set('@codeleap:username', user.username, {
+    cookieStore.set('@codeleap:userId', user.username, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
