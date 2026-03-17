@@ -25,11 +25,25 @@ interface UpdatePostData {
 }
 
 const fetchPosts = async (): Promise<Post[]> => {
-  const response = await fetch(`${API_URL}/`);
+  // Quebra cache do Firefox
+  const url = `${API_URL}/?t=${Date.now()}`;
+  
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    },
+    cache: 'no-store' // ← importante no Firefox
+  });
+  
   if (!response.ok) {
     throw new Error('Failed to fetch posts');
   }
+  
   const data = await response.json();
+  console.log('Posts recebidos:', data.results?.length || 0); // debug
   return data.results || [];
 };
 
