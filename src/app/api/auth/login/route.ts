@@ -13,32 +13,29 @@ export async function POST(request: Request) {
       );
     }
 
-    // Verifica se o usuário já existe
+    const trimmedUsername = username.trim();
+
+    // Procura usuário
     let user = await prisma.user.findUnique({
-      where: { username: username.trim() },
+      where: { username: trimmedUsername },
     });
 
-    // Se não existe, cria um novo
+    // Se NÃO existe → cria agora
     if (!user) {
       user = await prisma.user.create({
-        data: {
-          username: username.trim(),
-        },
+        data: { username: trimmedUsername },
       });
     }
 
-    // Salva no cookie (sessão) - USAR MESMO NOME EM TODOS OS LUGARES
+    // Se EXISTE (ou acabou de criar) → entra na mesma conta
     const cookieStore = await cookies();
-    
-    // Salvar o ID do usuário (não o username)
     cookieStore.set('@codeleap:userId', user.id, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 7, // 7 dias
+      maxAge: 60 * 60 * 24 * 7,
     });
 
-    // Opcional: salvar username também se precisar
     cookieStore.set('@codeleap:username', user.username, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
